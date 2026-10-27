@@ -1,0 +1,22 @@
+{
+  "name": "atul-rey-cloud-render",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Remotion renderer for Atul Rey Studio episodes",
+  "scripts": {
+    "render": "remotion render src/remotion/index.ts"
+  },
+  "dependencies": {
+    "@fontsource/roboto": "^5.3.0",
+    "@fontsource/roboto-mono": "^5.3.0",
+    "@remotion/cli": "4.0.538",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "4.0.538"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,35 @@
+name: coldframe
+
+on:
+  workflow_dispatch:
+    inputs:
+      composition:
+        description: Composition id
+        required: true
+        default: PodcastLandscape
+      chunks:
+        description: Parallel machines (1-20)
+        default: "8"
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    outputs:
+      props: ${{ steps.read.outputs.props }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: read
+        run: echo "props=$(jq -c . props.json)" >> "$GITHUB_OUTPUT"
+
+  render:
+    needs: prepare
+    uses: Razee4315/coldframe/.github/workflows/render.yml@v1
+    with:
+      composition: ${{ inputs.composition }}
+      chunks: ${{ fromJSON(inputs.chunks) }}
+      props: ${{ needs.prepare.outputs.props }}
+      entry-point: src/remotion/index.ts
+      extra-args: "--crf=21 --x264-preset=ultrafast --image-format=jpeg --jpeg-quality=90 --color-space=bt709"
